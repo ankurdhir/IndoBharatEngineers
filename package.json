@@ -1,0 +1,63 @@
+{
+  "name": "indo-bharat-engineers-website",
+  "version": "1.0.0",
+  "description": "Professional website for Indo Bharat Engineers - Electrical services and engineering solutions",
+  "main": "index.html",
+  "scripts": {
+    "build-css": "tailwindcss -i ./assets/css/styles.css -o ./assets/css/output.css --watch",
+    "build": "tailwindcss -i ./assets/css/styles.css -o ./assets/css/output.css --minify",
+    "dev": "npx serve . -s -l 3000",
+    "start": "npx serve . -s -l 3000",
+    "deploy": "gh-pages -d .",
+    "lint": "npx htmlhint *.html && npx stylelint assets/css/*.css",
+    "optimize-images": "npx imagemin assets/images/* --out-dir=assets/images/optimized",
+    "lighthouse": "npx lighthouse http://localhost:3000 --output html --output-path ./lighthouse-report.html"
+  },
+  "keywords": [
+    "electrical-services",
+    "electrical-engineers",
+    "electrical-maintenance",
+    "electrical-panels",
+    "transformers",
+    "earthing-system",
+    "electrical-installation",
+    "indo-bharat-engineers",
+    "gurugram",
+    "electrical-contractors"
+  ],
+  "author": "Indo Bharat Engineers",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/indo-bharat-engineers.git"
+  },
+  "homepage": "https://yourusername.github.io/indo-bharat-engineers/",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "gh-pages": "^6.1.0",
+    "serve": "^14.2.1",
+    "htmlhint": "^1.1.4",
+    "stylelint": "^15.11.0",
+    "imagemin": "^8.0.1",
+    "imagemin-webp": "^8.0.0",
+    "lighthouse": "^11.4.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie <= 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "files": [
+    "*.html",
+    "assets/",
+    "README.md",
+    "tailwind.config.js"
+  ]
+}
