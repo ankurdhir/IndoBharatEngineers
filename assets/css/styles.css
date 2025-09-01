@@ -43,7 +43,7 @@ body {
 
 /* Scroll behavior */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* normal scrolling, no smooth behavior */
 }
 
 /* Custom scrollbar */
@@ -595,7 +595,7 @@ html {
   .carousel-slide img {
     height: 250px;
   }
-  .carousel { margin-bottom: 56px; }
+  .carousel { margin-bottom: 120px; }
   /* remove forced stacking to keep natural flow */
   #hero { position: static; z-index: auto; }
   
