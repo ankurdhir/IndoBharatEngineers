@@ -595,7 +595,7 @@ html {
   .carousel-slide img {
     height: 250px;
   }
-  .carousel { margin-bottom: 24px; }
+  .carousel { margin-bottom: 56px; }
   /* remove forced stacking to keep natural flow */
   #hero { position: static; z-index: auto; }
   
@@ -613,6 +613,10 @@ html {
   .contact-form {
     padding: 24px;
   }
+}
+
+@media (min-width: 769px) {
+  .carousel { margin-bottom: 32px; }
 }
 
 /* Loading animation for smooth transitions */
