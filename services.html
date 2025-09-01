@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - INDO BHARAT ENGINEERS | Professional Electrical Services</title>
+    <meta name="description" content="Comprehensive electrical services including maintenance, retrofitting, energy conservation, CSR activities, and new project installations by Indo Bharat Engineers.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-inter antialiased no-transition">
+    <!-- Header (same as other pages) -->
+    <header class="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/20 dark:border-gray-700/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-4">
+                    <img src="assets/images/ibe-removebg-preview.png" alt="Indo Bharat Engineers Logo" class="h-12 w-auto object-contain">
+                    <div class="hidden md:block">
+                        <h1 class="text-xl lg:text-2xl font-bold brand-logo">INDO BHARAT ENGINEERS</h1>
+                        <p class="text-sm brand-tagline">Redefining Perfection</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+                    <a href="services.html" class="text-sm lg:text-base font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Services</a>
+                    <a href="about.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</a>
+                    <a href="contact.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact Us</a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
+                        <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                </nav>
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button id="mobile-menu-button" class="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" aria-label="Toggle menu">
+                        <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-4 py-6 space-y-4">
+                <a href="index.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Home</a>
+                <a href="services.html" class="block text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Services</a>
+                <a href="about.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">About Us</a>
+                <a href="contact.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="py-20 gradient-primary">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="scroll-animate">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Our Services</h1>
+                    <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">Comprehensive electrical services and engineering solutions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intro from document -->
+        <!-- <section class="py-12">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+                <p class="text-lg text-gray-700 dark:text-gray-200">We provide Maintenance Services along with Trouble shooting of Electrical and Fire services. It includes Maintenance of Transformer, VCB Panels up to 33KV, LT Panels etc.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-200">We provide solutions after doing complete Value Engineering.</p>
+            </div>
+        </section> -->
+
+        <!-- Services -->
+        <section class="py-20 content-section no-animate no-transition">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Electrical Maintenance -->
+                <div class="mb-20 scroll-animate">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-blue-600">Electrical Maintenance</h3>
+                            <ul class="pro-list space-y-2">
+                                <li>Maintenance of electrical system including Transformer (Oil type and Dry type both), HT Panels, LT Panels, Control Panels, Cabling Network, All types of switchgears</li>
+                                <li>Testing and Servicing of Transformers, HT Panels, LT Panels, Cable network etc</li>
+                                <li>Transformer Oil Dehydration and Filtration</li>
+                                <li>Silica Gel Replacement and Leakage Repair In Oil Type Transformers</li>
+                                <li>HT Cables High Pot Testing</li>
+                                <li>11KV and 33KV VCB, Isolating Switches, By Pass Switches Servicing</li>
+                                <li>Setting of Protection Relays and System, Secondary Injection Testing</li>
+                                <li>LT Panels Servicing and Maintenance</li>
+                                <li>Upgrading and Retrofitting in LT Panels</li>
+                                <li>Servicing of ACB, MCCB and other Switchgears</li>
+                                <li>Trouble Shooting and Fixing of Fault in Electrical System up to 11KV and 33KV</li>
+                                <li>Servicing, Maintenance of Panels for Generator (DG Set) including Retrofitting work in AMF Panel, Synchronising Panel etc.</li>
+                            </ul>
+                        </div>
+                        <div class="professional-image">
+                            <img src="assets/images/Panel Maintenance.jpg" alt="Electrical Panel Maintenance" class="w-full h-96 object-cover rounded-2xl" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earthing System -->
+                <div class="mb-20 scroll-animate">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-green-700">Earthing System</h3>
+                            <ul class="modern-list space-y-4">
+                                <li>Conventional earthing – copper plate, G.I Plate, Pipe Earthing</li>
+                                <li>Chemical earthing</li>
+                                <li>New Earthing System Installation</li>
+                                <li>Testing and Maintenance of Existing Earthing</li>
+                                <li>Lightening Arrestor</li>
+                                <li>Earthing network containing strips and cables/wires</li>
+                            </ul>
+                        </div>
+                        <div class="professional-image">
+                            <img src="assets/images/Earthing.jpg" alt="Earthing System" class="w-full h-96 object-cover rounded-2xl" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expansion Work -->
+                <div class="mb-20 scroll-animate">
+                    <div class="service-card">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-blue-700">Expansion Work</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">If you are planning any type of expansion work in your existing set - up, whether it is Commercial building, Industrial building (Factory), School, College, University or any other type of Building. We are there to assist you fully in Electrical matters. We shall take care of the additional Electrical load requirements, designing and coordination with the existing Electrical set-up and execute the expansion Electrical work in a time bound manner with the best quality of workmanship.</p>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed mt-4">Similarly, in case of Fire Fighting work, we can assist in expansion of existing Sprinkler, Hydrant and Fire Alarm System with proper Technical coordination.</p>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed mt-4">Any type of piping extension work can be carried out as per the requirement.</p>
+                    </div>
+                </div>
+
+                <!-- Retrofitting Work -->
+                <div class="mb-20 scroll-animate">
+                    <div class="service-card">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-red-600">Retrofitting Work</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">If your existing Electrical system has become obsolete and you are facing problems with respect to your existing electrical installations. You are fed up of day to day cable burning, electrical panels tripping, Overheating of the system etc. We are there to overcome your worries. We shall make the complete study of your existing electrical Installations and suggest you the best possible solutions to the same. We shall design the Electrical system keeping in mind the safety and quality and execute the same in order to make the Electrical system safe and trouble free for use in future.</p>
+                    </div>
+                </div>
+
+                <!-- Energy Conservation -->
+                <div class="mb-20 scroll-animate">
+                    <div class="service-card">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-yellow-600">Energy Conservation, Power Factor Correction</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">If your Electrical system is over sized and there is energy wastage, you are facing problem with Low Power Factor due to heavy Inductive load in your set up etc. We can assist you by providing suitable solutions to your Energy problems. We can also assist you by suggesting the corrective measures and redesigning your Electrical system to perfection. A perfect Power Factor improvement solution shall be provided with elimination/reduction in harmonics if required.</p>
+                    </div>
+                </div>
+
+                <!-- CSR Activities -->
+                <div class="mb-20 scroll-animate">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-teal-600">Assistance in CSR Activities (Solar systems and EV Charging Stations for CSR Activities)</h3>
+                            <p class="text-lg text-gray-700 dark:text-gray-200 mb-6">As an assistance to Corporates for spending under CSR funds, we provide following Services under CSR Funds Spending:</p>
+                            <ul class="modern-list space-y-4">
+                                <li>Installation, Testing and Commissioning of EV Charging stations for Electric Vehicles</li>
+                                <li>Providing Solar systems for various needy sectors under a CSR funds spending.</li>
+                            </ul>
+                        </div>
+                        <div class="professional-image">
+                            <img src="assets/images/Solar.JPG" alt="CSR Solar and EV" class="w-full h-96 object-cover rounded-2xl" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retrofitting Work -->
+                <div class="mb-20 scroll-animate">
+                    <div class="service-card">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-red-600">Retrofitting Work</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">
+                            If your existing Electrical system has become obsolete the complete retrofitting work can be planned and executed to make the Electrical system safe and trouble free for use in future.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Energy Conservation -->
+                <div class="mb-20 scroll-animate">
+                    <div class="service-card">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-yellow-600">Energy Conservation, Power Factor Correction</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">
+                            If your Electrical system is over sized and there is under utilization of the assets in the system, we can advise energy conservation measures with new electrical design and power factor correction to make the system more efficient and economical. Harmonics can be provided with elimination/reduction in harmonics if required.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CSR Activities -->
+                <div class="mb-20 scroll-animate">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-teal-600">Assistance in CSR Activities</h3>
+                            <p class="text-lg text-gray-700 dark:text-gray-200 mb-6">
+                                As an assistance to Corporates for spending under CSR funds, we provide following Services under CSR Funds Spending:
+                            </p>
+                            <ul class="modern-list space-y-4">
+                                <li>Installation, Testing and Commissioning of EV Charging stations for Electric Vehicles</li>
+                                <li>Providing Solar systems for various needy sectors under a CSR funds spending.</li>
+                            </ul>
+                        </div>
+                        <div class="professional-image">
+                            <img src="assets/images/Solar.JPG" alt="Solar System Installation" class="w-full h-96 object-cover rounded-2xl">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Projects -->
+                <div class="mb-20 scroll-animate">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-indigo-600">New Projects</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-200 max-w-4xl mx-auto">
+                            Supply, Installation, Testing and Commissioning of all Electrical works in Commercial, Hospitals, Hotels, Schools, Colleges, Universities etc.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/Electrical Panels.JPG" alt="HT and LT Panels" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">HT and LT Electrical Panels Installation</h4>
+                        </div>
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/Cable (1).JPG" alt="Cable Laying" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">HT and LT Cable Laying (Overhead and Underground both)</h4>
+                        </div>
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/Trafo.JPG" alt="Transformer Installation" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">Transformers Installation</h4>
+                        </div>
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/DG.JPG" alt="DG Set" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">DG Set Installation</h4>
+                        </div>
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/Extended Terminal.JPG" alt="Bus Ducts and Rising Mains" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">Bus Ducts and Rising Mains Installation</h4>
+                        </div>
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/Connections.JPG" alt="Cable Trays Network" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">Cable Trays Network</h4>
+                        </div>
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/DB.JPG" alt="Internal Electrification" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">Internal Electrification (Conduiting and Wiring)</h4>
+                        </div>
+                        <div class="service-card text-center">
+                            <div class="professional-image mb-4"><img src="assets/images/Terminals.JPG" alt="External Electrification" class="w-full h-40 object-cover" loading="lazy" decoding="async"></div>
+                            <h4 class="font-bold">External Electrification</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center scroll-animate">
+                    <div class="professional-image max-w-4xl mx-auto">
+                        <img src="assets/images/Panels Group.JPG" alt="Professional Electrical Panel Installation Project" class="w-full h-96 object-cover rounded-2xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 gradient-secondary text-center content-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Start Your Project?</h2> -->
+                <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">Contact us today for professional electrical services.</p>
+                <a href="contact.html" class="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl">Contact Us Now</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="assets/images/ibe-removebg-preview.png" alt="Indo Bharat Engineers" class="h-10 w-auto">
+                        <div>
+                            <h3 class="text-lg font-bold">INDO BHARAT ENGINEERS</h3>
+                            <p class="text-sm text-gray-300">Redefining Perfection</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">Professional electrical services and engineering solutions.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="services.html" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Information</h4>
+                    <div class="space-y-2 text-gray-300">
+                        <p>📍 Gurugram</p>
+                        <p>📞 +91 8700628217, 9811276094</p>
+                        <p>✉️ support@indobharatengineers.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 Indo Bharat Engineers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+

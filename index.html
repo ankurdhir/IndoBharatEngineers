@@ -69,7 +69,8 @@
                 <!-- Navigation -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-sm lg:text-base font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
-                    <a href="about.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Services</a>
+                    <a href="services.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Services</a>
+                    <a href="about.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</a>
                     <a href="contact.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact Us</a>
                     
                     <!-- Dark Mode Toggle -->
@@ -87,12 +88,25 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                         </svg>
                     </button>
-                    <button class="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button id="mobile-menu-button" class="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" aria-label="Toggle menu">
+                        <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-4 py-6 space-y-4">
+                <a href="index.html" class="block text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Home</a>
+                <a href="services.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Services</a>
+                <a href="about.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">About Us</a>
+                <a href="contact.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Contact Us</a>
             </div>
     </div>
   </header>
@@ -126,34 +140,28 @@
                     
                     <!-- Enhanced Carousel with Captions -->
                     <div class="scroll-animate">
-                        <div class="carousel shadow-2xl relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-md">
+                        <div class="carousel shadow-2xl relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-md" data-autoplay="true">
                             <div class="carousel-track">
                                 <div class="carousel-slide relative">
-                                    <img src="assets/images/11KV Panel.JPG" alt="11KV Electrical Panel Installation" class="w-full h-96 md:h-[500px] object-cover">
+                                    <img src="assets/images/11KV Panel.JPG" alt="11KV Electrical Panel Installation, Service and Maintenance" class="w-full h-96 md:h-[500px] object-cover">
                                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                                        <h3 class="text-white font-bold text-lg">11KV Panel Installation</h3>
+                                        <h3 class="text-white font-bold text-lg">11KV Panel Installation — Service & Maintenance</h3>
                                         <p class="text-white/80 text-sm">High voltage electrical panel solutions</p>
                                     </div>
                                 </div>
+                               
                                 <div class="carousel-slide relative">
-                                    <img src="assets/images/33KV Panel.JPG" alt="33KV Panel Electrical Services" class="w-full h-96 md:h-[500px] object-cover">
+                                    <img src="assets/images/33KV VCB.JPG" alt="VCB service and maintenance" class="w-full h-96 md:h-[500px] object-cover">
                                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                                        <h3 class="text-white font-bold text-lg">33KV Panel Services</h3>
-                                        <p class="text-white/80 text-sm">Industrial grade electrical installations</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-slide relative">
-                                    <img src="assets/images/33KV VCB.JPG" alt="33KV VCB Installation and Maintenance" class="w-full h-96 md:h-[500px] object-cover">
-                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                                        <h3 class="text-white font-bold text-lg">VCB Installation</h3>
+                                        <h3 class="text-white font-bold text-lg">VCB Service & Maintenance</h3>
                                         <p class="text-white/80 text-sm">Vacuum circuit breaker solutions</p>
                                     </div>
                                 </div>
                                 <div class="carousel-slide relative">
-                                    <img src="assets/images/Electrical Panels.JPG" alt="Electrical Panels Installation" class="w-full h-96 md:h-[500px] object-cover">
+                                    <img src="assets/images/Electrical Panels.JPG" alt="Electrical LT panels — design, installation and maintenance" class="w-full h-96 md:h-[500px] object-cover">
                                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                                        <h3 class="text-white font-bold text-lg">Electrical Panels</h3>
-                                        <p class="text-white/80 text-sm">Complete panel design & installation</p>
+                                        <h3 class="text-white font-bold text-lg">Electrical LT Panels</h3>
+                                        <p class="text-white/80 text-sm">Installation service and maintainence</p>
                                     </div>
                                 </div>
                                 <div class="carousel-slide relative">
@@ -164,17 +172,17 @@
                                     </div>
                                 </div>
                                 <div class="carousel-slide relative">
-                                    <img src="assets/images/Solar Panel.JPG" alt="Solar Panel Installation" class="w-full h-96 md:h-[500px] object-cover">
+                                    <img src="assets/images/Solar Panel.JPG" alt="Renewable energy solutions — Solar installations under CSR activities" class="w-full h-96 md:h-[500px] object-cover">
                                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                                        <h3 class="text-white font-bold text-lg">Solar Solutions</h3>
-                                        <p class="text-white/80 text-sm">Renewable energy installations</p>
+                                        <h3 class="text-white font-bold text-lg">Renewable Energy Solutions</h3>
+                                        <p class="text-white/80 text-sm">Solar installation under CSR activities</p>
                                     </div>
                                 </div>
                                 <div class="carousel-slide relative">
-                                    <img src="assets/images/Earthing.jpg" alt="Earthing System Installation" class="w-full h-96 md:h-[500px] object-cover">
+                                    <img src="assets/images/Earthing.jpg" alt="Earthing: testing and new earthing (conventional and chemical)" class="w-full h-96 md:h-[500px] object-cover">
                                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                                        <h3 class="text-white font-bold text-lg">Earthing Systems</h3>
-                                        <p class="text-white/80 text-sm">Safety earthing installations</p>
+                                        <h3 class="text-white font-bold text-lg">Earthing: Testing & New Installations</h3>
+                                        <p class="text-white/80 text-sm">Conventional and chemical earthing methods</p>
                                     </div>
                                 </div>
                                 <div class="carousel-slide relative">
@@ -184,8 +192,36 @@
                                         <p class="text-white/80 text-sm">Regular maintenance & repairs</p>
                                     </div>
                                 </div>
+                                <!-- Added slides per request -->
+                                <div class="carousel-slide relative">
+                                    <img src="assets/images/Cable (2).JPG" alt="Electrical cabling and cable tray" class="w-full h-96 md:h-[500px] object-cover">
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                        <h3 class="text-white font-bold text-lg">Electrical Cabling & Cable Tray</h3>
+                                        <p class="text-white/80 text-sm">Professional cable laying and management</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide relative">
+                                    <img src="assets/images/Solar.JPG" alt="Solar installation under CSR activities" class="w-full h-96 md:h-[500px] object-cover">
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                        <h3 class="text-white font-bold text-lg">Solar Installation (CSR)</h3>
+                                        <p class="text-white/80 text-sm">Renewable energy implementations</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide relative">
+                                    <img src="assets/images/Earth Laying.jpeg" alt="Earthing — earth laying" class="w-full h-96 md:h-[500px] object-cover">
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                        <h3 class="text-white font-bold text-lg">Earthing — Earth Laying</h3>
+                                        <p class="text-white/80 text-sm">High-quality materials and execution</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide relative">
+                                    <img src="assets/images/Trafo.JPG" alt="Transformer installation and service" class="w-full h-96 md:h-[500px] object-cover">
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                        <h3 class="text-white font-bold text-lg">Transformer Solutions</h3>
+                                        <p class="text-white/80 text-sm">Installation, testing & maintenance</p>
+                                    </div>
+                                </div>
                             </div>
-                            
                             <!-- Enhanced Carousel Controls -->
                             <button class="carousel-prev" aria-label="Previous image">‹</button>
                             <button class="carousel-next" aria-label="Next image">›</button>
@@ -194,6 +230,115 @@
                 </div>
             </div>
         </section>
+<!-- Client Logos Placeholder Section -->
+<section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 scroll-animate">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 electric-heading">Trusted by Leading Companies</h2>
+            <p class="text-gray-600 dark:text-gray-300">Few of our prestigious customers are</p>
+        </div>
+        
+        <div class="scroll-animate">
+            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 lg:gap-24 opacity-90 hover:opacity-100 transition-opacity duration-300">
+                <!-- Client logos -->
+                <img src="assets/images/ddca.png" alt="DDCA" class="client-logo" loading="lazy" decoding="async">
+                <img src="assets/images/blusmart.png" alt="BluSmart" class="client-logo" loading="lazy" decoding="async">
+                <img src="assets/images/powerparts.png" alt="PowerParts" class="client-logo" loading="lazy" decoding="async">
+                <img src="assets/images/prideindia.png" alt="Pride India" class="client-logo" loading="lazy" decoding="async">
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Contact Reasons (from document) -->
+        <section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 section-pattern">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="scroll-animate text-center mb-10">
+                    <h2 class="text-2xl md:text-3xl font-bold electric-heading">You can contact us in case:</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">We respond quickly with expert guidance.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 text-left">
+                    <div class="reason-card flex items-start gap-3">
+                        <span class="reason-icon">
+                            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        </span>
+                        <p>You are planning to come up with a new building</p>
+                    </div>
+                    <div class="reason-card flex items-start gap-3">
+                        <span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span>
+                        <p>Need to invest in CSR Activities (Solar System &amp; EV Charging Station)</p>
+                    </div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>You are planning an expansion to your existing set up</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>You are facing any electrical problem in your existing set up of panels, transformer, HT panel, cabling network. Earthing etc.</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>You want to replace your old electrical system</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Your load has increased and you are facing problems of overheating, tripping etc or you have added more plant/machinery/equipment to your existing set up or you are planning to do so</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>You want to upgrade technology in your electrical system or retrofitting work</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Testing and servicing of your electrical system up to 33KV</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Maintenance and Trouble Shooting in Electrical system up to 33KV</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Testing of Existing Earthing System</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Installation of New Earthing System</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Testing of Existing Fire Protection System</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Modification/Retrofitting/Expansion in Existing Fire Fighting System, Sprinkler, Hydrant and Fire Alarm System</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Installation of New Fire Fighting and Fire Alarm System</p></div>
+                    <div class="reason-card flex items-start gap-3"><span class="reason-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414l2.293 2.293 6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></span><p>Industrial Piping of various applications</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Overview (cards link to services page) -->
+        <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 scroll-animate">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 electric-heading">Services</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Electrical Maintenance • Earthing System • Retrofitting & Expansion • Energy Conservation • CSR (Solar & EV) • New Projects</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="service-card scroll-animate text-center group">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-3xl">🔌</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-blue-600">Electrical Maintenance</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm">Transformers, HT/LT panels, testing & servicing</p>
+                        <a href="services.html" class="text-blue-600 font-semibold mt-3 inline-block">Explore →</a>
+                    </div>
+                    
+                    <!-- Service Card 2 -->
+                    <div class="service-card scroll-animate text-center group">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-3xl">⚙️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-green-600">Earthing System</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm">Conventional & chemical earthing, testing</p>
+                        <a href="services.html" class="text-green-600 font-semibold mt-3 inline-block">Explore →</a>
+                    </div>
+                    
+                    <!-- Service Card 3 -->
+                    <div class="service-card scroll-animate text-center group">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-3xl">🏗️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-orange-600">Retrofitting & Expansion</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm">System upgrades, relay setting, panel retrofits</p>
+                        <a href="services.html" class="text-orange-600 font-semibold mt-3 inline-block">Explore →</a>
+                    </div>
+                    
+                    <!-- Service Card 4 -->
+                    <div class="service-card scroll-animate text-center group">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-3xl">☀️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-purple-600">CSR & New Projects</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm">Solar & EV under CSR, turnkey electrical works</p>
+                        <a href="services.html" class="text-purple-600 font-semibold mt-3 inline-block">Explore →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
 
         <!-- Quick Stats Section for Credibility -->
         <section class="py-16 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
@@ -203,17 +348,17 @@
                         <div class="bg-gradient-to-br from-blue-500 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                             <span class="text-2xl font-bold text-white">⚡</span>
                         </div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">500+</h3>
-                        <p class="text-gray-600 dark:text-gray-300 font-medium">Projects Delivered</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Successful electrical installations</p>
+                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2"></h3>
+                        <p class="text-gray-600 dark:text-gray-300 font-medium">Multiple Projects Delivered</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Successful electrical installations and maintaince</p>
                     </div>
                     
                     <div class="scroll-animate group">
                         <div class="bg-gradient-to-br from-green-500 to-teal-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                             <span class="text-2xl font-bold text-white">🏭</span>
                         </div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">25+</h3>
-                        <p class="text-gray-600 dark:text-gray-300 font-medium">Years of Expertise</p>
+                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2"></h3>
+                        <p class="text-gray-600 dark:text-gray-300 font-medium">25+ Years of Expertise</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Industry experience</p>
                     </div>
                     
@@ -221,98 +366,9 @@
                         <div class="bg-gradient-to-br from-orange-500 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                             <span class="text-2xl font-bold text-white">🤝</span>
                         </div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">100+</h3>
-                        <p class="text-gray-600 dark:text-gray-300 font-medium">Trusted Clients</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Satisfied customers</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Service Highlights Cards -->
-        <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 scroll-animate">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 electric-heading">Our Core Services</h2>
-                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        Professional electrical engineering solutions for all your needs
-                    </p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Service Card 1 -->
-                    <div class="service-card scroll-animate text-center group">
-                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl">🔌</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-blue-600">Electrical Panel Design</h3>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm">
-                            HT & LT panel installations with cutting-edge technology
-                        </p>
-                    </div>
-                    
-                    <!-- Service Card 2 -->
-                    <div class="service-card scroll-animate text-center group">
-                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl">⚙️</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-green-600">Maintenance & Repairs</h3>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm">
-                            Preventive maintenance and emergency repair services
-                        </p>
-                    </div>
-                    
-                    <!-- Service Card 3 -->
-                    <div class="service-card scroll-animate text-center group">
-                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl">🏗️</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-orange-600">Industrial Automation</h3>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm">
-                            Complete automation solutions for industrial facilities
-                        </p>
-                    </div>
-                    
-                    <!-- Service Card 4 -->
-                    <div class="service-card scroll-animate text-center group">
-                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl">☀️</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-purple-600">Solar Solutions</h3>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm">
-                            Renewable energy systems and EV charging stations
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Client Logos Placeholder Section -->
-        <section class="py-16 bg-white dark:bg-gray-900">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12 scroll-animate">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-4 electric-heading">Trusted by Leading Companies</h2>
-                    <p class="text-gray-600 dark:text-gray-300">We've partnered with industry leaders across various sectors</p>
-                </div>
-                
-                <div class="scroll-animate">
-                    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
-                        <!-- Placeholder logos -->
-                        <div class="w-24 h-16 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">CLIENT 1</span>
-                        </div>
-                        <div class="w-24 h-16 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">CLIENT 2</span>
-                        </div>
-                        <div class="w-24 h-16 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">CLIENT 3</span>
-                        </div>
-                        <div class="w-24 h-16 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">CLIENT 4</span>
-                        </div>
-                        <div class="w-24 h-16 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
-                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">CLIENT 5</span>
-                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2"></h3>
+                        <p class="text-gray-600 dark:text-gray-300 font-medium">Multiple Satisfied customers</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1"></p>
                     </div>
                 </div>
             </div>
@@ -357,67 +413,11 @@
         </section>
 
         <!-- Services Overview -->
-        <section class="py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 scroll-animate">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 electric-heading">Our Expertise</h2>
-                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        We are well experienced from the industry and are well equipped to deliver best possible solutions
-                    </p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Service Card 1 -->
-                    <div class="service-card scroll-animate">
-                        <div class="text-center">
-                            <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4">Electrical Maintenance</h3>
-                            <p class="text-gray-600 dark:text-gray-300">
-                                Complete electrical maintenance contracts for commercial buildings and industrial units with customized preventive & predictive maintenance schedules.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Service Card 2 -->
-                    <div class="service-card scroll-animate">
-                        <div class="text-center">
-                            <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4">Panel Maintenance</h3>
-                            <p class="text-gray-600 dark:text-gray-300">
-                                Maintenance of LT panels/DBs and other switchgears. We undertake annual and monthly schedules for inspection.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Service Card 3 -->
-                    <div class="service-card scroll-animate">
-                        <div class="text-center">
-                            <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4">Earthing System</h3>
-                            <p class="text-gray-600 dark:text-gray-300">
-                                New Earthing System Installation, Routine Earth Pit Testing, and Lightning Arrestor installations.
-                            </p>
-                        </div>
-          </div>
-        </div>
-      </div>
-    </section>
+     
 
         <!-- Contact CTA Section -->
         <section class="py-20 gradient-primary">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div class="scroll-animate">
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
                         You can contact us in case:
@@ -450,7 +450,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
     </section>
   </main>
 
@@ -499,7 +499,7 @@
                     <div class="space-y-2 text-gray-300">
                         <p>📍 Gurugram</p>
                         <p>📞 +91 8700628217, 9811276094</p>
-                        <p>✉️ emegampere@gmail.com</p>
+                        <p>✉️ support@indobharatengineers.com</p>
                     </div>
                 </div>
             </div>

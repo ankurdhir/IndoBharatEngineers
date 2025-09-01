@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - INDO BHARAT ENGINEERS | Get In Touch</title>
-    <meta name="description" content="Contact Indo Bharat Engineers for professional electrical services. Located in Gurugram. Call us at +91 8700628217, 9811276094 or email emegampere@gmail.com">
+    <meta name="description" content="Contact Indo Bharat Engineers for professional electrical services. Located in Gurugram. Call us at +91 8700628217, 9811276094 or email support@indobharatengineers.com">
   <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EmailJS SDK for contact form -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init('-zkL1u2llqlU54F8X');
+            console.log('EmailJS initialized with key: -zkL1u2llqlU54F8X');
+            
+            // Test EmailJS connection
+            window.testEmailJS = function() {
+                console.log('Testing EmailJS configuration...');
+                emailjs.send('service_agc507u', 'template_glpahn5', {
+                    from_name: 'Test User',
+                    from_email: 'test@example.com',
+                    phone: '1234567890',
+                    service: 'Test Service',
+                    message: 'This is a test message',
+                    subject: 'Test Email from Website'
+                }).then(function(response) {
+                    console.log('✅ EmailJS test successful!', response);
+                    alert('✅ EmailJS is working! Check your email.');
+                }).catch(function(error) {
+                    console.error('❌ EmailJS test failed:', error);
+                    console.error('Error details:', error.message, error.status, error.text);
+                    alert('❌ EmailJS test failed. Check console for details.');
+                });
+            };
+        })();
+    </script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -37,7 +65,8 @@
                 
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
-                    <a href="about.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Services</a>
+                    <a href="services.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Services</a>
+                    <a href="about.html" class="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</a>
                     <a href="contact.html" class="text-sm lg:text-base font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact Us</a>
                     
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
@@ -46,6 +75,33 @@
                         </svg>
                     </button>
       </nav>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle dark mode">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                    <button id="mobile-menu-button" class="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" aria-label="Toggle menu">
+                        <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-4 py-6 space-y-4">
+                <a href="index.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Home</a>
+                <a href="services.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Services</a>
+                <a href="about.html" class="block text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">About Us</a>
+                <a href="contact.html" class="block text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2">Contact Us</a>
             </div>
     </div>
   </header>
@@ -118,8 +174,8 @@
                                     </div>
                                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Email Us</h3>
                                     <p class="text-base text-gray-600 dark:text-gray-300">
-                                        <a href="mailto:emegampere@gmail.com" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors break-all">
-                                            emegampere@gmail.com
+                                        <a href="mailto:support@indobharatengineers.com" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors break-all">
+                                            support@indobharatengineers.com
                                         </a>
                                     </p>
                                 </div>
@@ -203,18 +259,18 @@
         <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div class="scroll-animate">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 electric-heading">Ready to Get Started?</h2>
+                    <!-- <h2 class="text-3xl md:text-4xl font-bold mb-6 electric-heading">Ready to Get Started?</h2> -->
                     <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">Contact Indo Bharat Engineers today for professional electrical services</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <a href="tel:+918700628217" class="btn-primary text-center">
                             📞 Call Now: +91 8700628217
                         </a>
-                        <a href="mailto:emegampere@gmail.com" class="px-8 py-4 border-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 rounded-xl font-bold text-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-all duration-300 shadow-xl">
+                        <a href="mailto:support@indobharatengineers.com" class="px-8 py-4 border-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 rounded-xl font-bold text-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-all duration-300 shadow-xl">
                             ✉️ Send Email
                         </a>
                     </div>
                 </div>
-            </div>
+    </div>
         </section>
   </main>
 
@@ -248,7 +304,8 @@
                     <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
                         <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="services.html" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
                         <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
                     </ul>
                 </div>
@@ -258,7 +315,7 @@
                     <div class="space-y-2 text-gray-300">
                         <p>📍 Gurugram</p>
                         <p>📞 +91 8700628217, 9811276094</p>
-                        <p>✉️ emegampere@gmail.com</p>
+                        <p>✉️ support@indobharatengineers.com</p>
                     </div>
                 </div>
             </div>

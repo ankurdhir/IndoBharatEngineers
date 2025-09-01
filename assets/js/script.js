@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initInteractiveElements();
     initContactForm();
+    initMobileMenu();
     
     // Add loading animation
     document.body.classList.add('loading');
@@ -31,6 +32,7 @@ function initCarousel() {
     let currentIndex = 0;
     const totalSlides = slides.length;
     let autoplayInterval;
+    let isAnimating = false; // prevent rapid clicks
     
     // Clone first and last slides for infinite loop effect
     const firstSlideClone = slides[0].cloneNode(true);
@@ -48,21 +50,26 @@ function initCarousel() {
     
     // Move to specific slide
     function moveToSlide(index, smooth = true) {
+        if (isAnimating) return; // guard
+        isAnimating = true;
         if (!smooth) {
             track.style.transition = 'none';
         } else {
             track.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         }
         
-        track.style.transform = `translateX(-${index * slideWidth}%)`;
+        track.style.transform = `translate3d(-${index * slideWidth}%, 0, 0)`; // GPU accel to reduce flicker
         currentIndex = index;
         
         // Handle infinite loop
         if (!smooth) {
             setTimeout(() => {
                 track.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                isAnimating = false;
             }, 50);
         }
+        // Unlock after transition ends
+        setTimeout(() => { isAnimating = false; }, 820);
     }
     
     // Next slide
@@ -91,7 +98,8 @@ function initCarousel() {
     
     // Auto-play functionality
     function startAutoplay() {
-        autoplayInterval = setInterval(nextSlide, 4000); // 4 seconds
+        if (autoplayInterval) clearInterval(autoplayInterval);
+        autoplayInterval = setInterval(() => { if (!isAnimating) nextSlide(); }, 5000); // slower 5s
     }
     
     function stopAutoplay() {
@@ -112,7 +120,7 @@ function initCarousel() {
             nextButton.style.zIndex = '10';
             
             stopAutoplay();
-            nextSlide();
+            if (!isAnimating) nextSlide();
             
             // Double-check position after animation
             setTimeout(() => {
@@ -121,7 +129,7 @@ function initCarousel() {
                 nextButton.style.transform = 'translateY(-50%)';
             }, 100);
             
-            setTimeout(startAutoplay, 8000); // Restart autoplay after 8 seconds
+            setTimeout(startAutoplay, 6000); // Restart autoplay after 6 seconds
         });
     }
     
@@ -138,7 +146,7 @@ function initCarousel() {
             prevButton.style.zIndex = '10';
             
             stopAutoplay();
-            prevSlide();
+            if (!isAnimating) prevSlide();
             
             // Double-check position after animation
             setTimeout(() => {
@@ -147,7 +155,7 @@ function initCarousel() {
                 prevButton.style.transform = 'translateY(-50%)';
             }, 100);
             
-            setTimeout(startAutoplay, 8000); // Restart autoplay after 8 seconds
+            setTimeout(startAutoplay, 6000); // Restart autoplay after 6 seconds
         });
     }
     
@@ -266,11 +274,15 @@ function initDarkMode() {
     
     if (!toggleButton) return;
     
-    // Check for saved theme preference or default to 'light'
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    // Check for saved theme preference or default to 'dark'
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     
     // Apply the saved theme
     if (currentTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        updateThemeIcon(true);
+    } else {
+        // Default to dark on first load
         document.documentElement.classList.add('dark');
         updateThemeIcon(true);
     }
@@ -333,9 +345,9 @@ function initSmoothScrolling() {
                     behavior: 'smooth'
                 });
             }
-        });
+      });
     });
-    
+  
     // Add scroll progress indicator
     const scrollProgress = document.createElement('div');
     scrollProgress.className = 'scroll-progress';
@@ -464,8 +476,8 @@ window.addEventListener('load', () => {
             element.style.transform = 'translateY(0)';
         }, index * 100);
     });
-});
-
+  });
+  
 // Add mobile optimizations
 if (window.innerWidth <= 768) {
     // Disable some heavy animations on mobile for better performance
@@ -497,7 +509,7 @@ function initContactForm() {
     
     if (!contactForm) return;
     
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Get form data
@@ -530,27 +542,71 @@ ${data.message}`;
         // Send to WhatsApp
         const whatsappUrl = `https://wa.me/918700628217?text=${encodeURIComponent(whatsappMessage)}`;
         
-        // Also send email (you can integrate with EmailJS or similar service)
-        sendEmailNotification(data);
-        
-        // Show success message
-        if (formSuccess) {
-            formSuccess.classList.remove('hidden');
-            contactForm.reset();
+        try {
+            // Show sending state
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
             
-            // Scroll to success message
-            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Send email notification
+            const emailResult = await sendEmailNotification(data);
             
-            // Open WhatsApp after 2 seconds
-            setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-            }, 2000);
+            // Show success message
+            if (formSuccess) {
+                formSuccess.classList.remove('hidden');
+                contactForm.reset();
+                
+                // Update success message based on email method
+                if (emailResult.method === 'emailjs') {
+                    formSuccess.innerHTML = '<div class="flex items-center"><svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><p>✅ Email sent successfully! We will contact you soon via email and WhatsApp.</p></div>';
+                } else {
+                    formSuccess.innerHTML = '<div class="flex items-center"><svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><p>✅ Message prepared! We will contact you via WhatsApp.</p></div>';
+                }
+                
+                // Scroll to success message
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Open WhatsApp after 2 seconds
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                }, 2000);
+            }
+            
+            // Reset button
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+            
+        } catch (error) {
+            console.error('Error sending message:', error);
+            console.error('Error details:', error.message, error.status, error.text);
+            console.error('Form data:', data);
+            console.error('EmailJS configured:', typeof emailjs !== 'undefined');
+            alert('❌ EmailJS error. Opening email client as backup...');
+            
+            // Fallback to mailto
+            const subject = `New Inquiry from Website - ${data.name}`;
+            const body = `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email}\nService: ${data.service || 'Not specified'}\n\nMessage:\n${data.message}`;
+            const mailtoUrl = `mailto:support@indobharatengineers.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoUrl, '_blank');
+            
+            // Still show success for WhatsApp
+            if (formSuccess) {
+                formSuccess.classList.remove('hidden');
+                contactForm.reset();
+                formSuccess.innerHTML = '<div class="flex items-center"><svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><p>✅ Message prepared! We will contact you via WhatsApp and email.</p></div>';
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                }, 2000);
+            }
         }
     });
 }
 
-// Email notification function (you can integrate with EmailJS, Formspree, etc.)
-function sendEmailNotification(data) {
+// Email notification function (integrated with EmailJS)
+async function sendEmailNotification(data) {
     // For now, we'll create a mailto link as backup
     const subject = 'New Inquiry from Website - Indo Bharat Engineers';
     const body = `Name: ${data.name}
@@ -561,10 +617,121 @@ Service: ${data.service || 'Not specified'}
 Message:
 ${data.message}`;
     
-    const mailtoUrl = `mailto:emegampere@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Try to send email via EmailJS (if configured)
+    if (typeof emailjs !== 'undefined') {
+        try {
+            const templateParams = {
+                from_name: data.name,
+                from_email: data.email,
+                phone: data.phone,
+                service: data.service || 'Not specified',
+                message: data.message,
+                subject: subject
+            };
+            
+            // Your EmailJS configuration
+            await emailjs.send('service_agc507u', 'template_glpahn5', templateParams, '-zkL1u2llqlU54F8X');
+            
+            console.log('Email sent successfully via EmailJS');
+            return { success: true, method: 'emailjs' };
+        } catch (error) {
+            console.warn('EmailJS failed, falling back to mailto:', error);
+            console.warn('Error details:', error.message, error.status, error.text);
+            console.warn('Template params sent:', templateParams);
+            // Fallback to mailto if EmailJS fails
+            const mailtoUrl = `mailto:support@indobharatengineers.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoUrl, '_blank');
+            return { success: true, method: 'mailto' };
+        }
+    } else {
+        // Fallback to mailto if EmailJS is not loaded
+        const mailtoUrl = `mailto:support@indobharatengineers.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailtoUrl, '_blank');
+        return { success: true, method: 'mailto' };
+    }
+}
+
+// ===============================
+// MOBILE MENU FUNCTIONALITY
+// ===============================
+function initMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
     
-    // You can replace this with actual email service integration
-    console.log('Email would be sent to:', mailtoUrl);
+    if (!mobileMenuButton || !mobileMenu) return;
+    
+    // Toggle mobile menu
+    mobileMenuButton.addEventListener('click', function() {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        
+        if (isOpen) {
+            // Close menu
+            mobileMenu.classList.add('hidden');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        } else {
+            // Open menu
+            mobileMenu.classList.remove('hidden');
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+        }
+    });
+    
+    // Close menu when clicking on a link
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+            mobileMenu.classList.add('hidden');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        }
+    });
+    
+    // Handle mobile theme toggle
+    const mobileThemeToggle = document.getElementById('theme-toggle-mobile');
+    if (mobileThemeToggle) {
+        mobileThemeToggle.addEventListener('click', function() {
+            // Use the same dark mode toggle functionality
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcons();
+            
+            // Add smooth transition effect
+            document.documentElement.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+            setTimeout(() => {
+                document.documentElement.style.transition = '';
+            }, 300);
+        });
+    }
+}
+
+function updateThemeIcons() {
+    const themeIcon = document.getElementById('theme-icon');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    if (themeIcon) {
+        if (isDark) {
+            themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>';
+        } else {
+            themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+    }
+}
+
+// Update the existing updateThemeIcon function to use the new one
+function updateThemeIcon(isDark) {
+    updateThemeIcons();
 }
 
 // Error handling

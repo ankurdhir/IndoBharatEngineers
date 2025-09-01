@@ -23,9 +23,15 @@
   color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
-/* Smooth transitions for all elements */
-* {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Removed global * transitions (caused jank on scroll). Use per-component transitions only. */
+
+/* Respect user preference and provide a quick kill‑switch for animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Modern font family */
@@ -113,6 +119,8 @@ html {
 .carousel-track {
   display: flex;
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backface-visibility: hidden;
+  transform: translate3d(0,0,0);
 }
 
 .carousel-slide {
@@ -125,6 +133,7 @@ html {
   height: 400px;
   object-fit: cover;
   display: block;
+  backface-visibility: hidden;
 }
 
 /* Carousel controls - Fixed positioning */
@@ -294,6 +303,86 @@ html {
   will-change: transform;
 }
 
+/* Services page performance helpers */
+.content-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px; /* reserve space to prevent reflow */
+}
+
+.no-transition *,
+.no-transition *::before,
+.no-transition *::after {
+  transition: none !important;
+}
+
+/* Disable scroll-triggered animations inside .no-animate sections */
+.no-animate .scroll-animate,
+.no-animate .scroll-hidden,
+.no-animate .scroll-visible {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Professional lists for services */
+.pro-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.pro-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 10px;
+}
+
+.pro-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Pretty contact grid cards */
+.reason-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.dark .reason-card {
+  background: linear-gradient(180deg, rgba(17,24,39,0.7), rgba(17,24,39,0.6));
+  border-color: rgba(255,255,255,0.08);
+}
+.reason-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+
+.reason-icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--accent-gradient);
+  box-shadow: 0 6px 16px rgba(79,172,254,0.35);
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+}
+.reason-icon svg {
+  width: 14px;
+  height: 14px;
+  color: white;
+}
+
 /* Carousel positioning lock - prevents any position changes */
 .carousel {
   position: relative;
@@ -440,25 +529,16 @@ html {
   font-weight: 800;
 }
 
-.electric-heading::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(135deg, var(--electric-blue), var(--electric-purple));
-  border-radius: 2px;
-}
+.electric-heading::after { display: none; }
 
 /* Professional service cards */
 .service-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.96);
+  /* removed backdrop-filter for performance */
+  border: 1px solid rgba(229, 231, 235, 0.7);
   border-radius: 16px;
   padding: 32px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .service-card:hover {
@@ -533,8 +613,8 @@ html {
 
 /* Loading animation for smooth transitions */
 .loading {
-  opacity: 0;
-  animation: fadeIn 0.6s ease-out 0.2s forwards;
+  opacity: 1;
+  animation: none;
 }
 
 /* Professional shadows */
@@ -626,9 +706,29 @@ nav a:hover::after {
 }
 
 .professional-image img {
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .professional-image:hover img {
   transform: scale(1.05);
+}
+
+/* Client logos */
+.client-logo {
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: none;
+  opacity: 1;
+  transition: transform .2s ease;
+}
+.client-logo:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+@media (max-width: 768px) {
+  .client-logo { max-height: 56px; }
+}
+@media (min-width: 1024px) {
+  .client-logo { max-height: 96px; }
 }
