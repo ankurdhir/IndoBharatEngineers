@@ -114,6 +114,7 @@ html {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  z-index: auto; /* avoid covering following sections */
 }
 
 .carousel-track {
@@ -594,6 +595,9 @@ html {
   .carousel-slide img {
     height: 250px;
   }
+  .carousel { margin-bottom: 24px; }
+  /* remove forced stacking to keep natural flow */
+  #hero { position: static; z-index: auto; }
   
   .carousel-prev,
   .carousel-next {
