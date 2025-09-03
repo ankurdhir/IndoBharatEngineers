@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all features
     initCarousel();
+    initSwiperCarousel();
     initScrollAnimations();
     initDarkMode();
     initSmoothScrolling();
@@ -21,189 +22,277 @@ document.addEventListener('DOMContentLoaded', function() {
 function initCarousel() {
     const carousel = document.querySelector('.carousel');
     if (!carousel) return;
-    
+
     const track = carousel.querySelector('.carousel-track');
-    const slides = carousel.querySelectorAll('.carousel-slide');
     const prevButton = carousel.querySelector('.carousel-prev');
     const nextButton = carousel.querySelector('.carousel-next');
-    
-    if (!track || !slides.length) return;
-    
-    let currentIndex = 0;
+    const indicatorsWrap = carousel.querySelector('.carousel-indicators');
+    const autoplayEnabled = carousel.dataset.autoplay === 'true';
+
+    // Build slides from template (keeps markup DRY and easier to maintain)
+    const template = document.getElementById('carousel-slides-template');
+    if (!template) return;
+    track.innerHTML = ''; // ensure empty
+    // append all slides from template's children
+    Array.from(template.content.children).forEach(node => track.appendChild(node.cloneNode(true)));
+
+    let slides = Array.from(track.children);
     const totalSlides = slides.length;
-    let autoplayInterval;
-    let isAnimating = false; // prevent rapid clicks
-    
-    // Clone first and last slides for infinite loop effect
-    const firstSlideClone = slides[0].cloneNode(true);
-    const lastSlideClone = slides[totalSlides - 1].cloneNode(true);
-    
-    track.appendChild(firstSlideClone);
-    track.insertBefore(lastSlideClone, slides[0]);
-    
-    const allSlides = track.querySelectorAll('.carousel-slide');
-    const slideWidth = 100; // percentage
-    
-    // Set initial position
-    track.style.transform = `translateX(-${slideWidth}%)`;
-    currentIndex = 1;
-    
-    // Move to specific slide
-    function moveToSlide(index, smooth = true) {
-        if (isAnimating) return; // guard
-        isAnimating = true;
-        if (!smooth) {
-            track.style.transition = 'none';
-        } else {
-            track.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        }
-        
-        track.style.transform = `translate3d(-${index * slideWidth}%, 0, 0)`; // GPU accel to reduce flicker
-        currentIndex = index;
-        
-        // Handle infinite loop
-        if (!smooth) {
-            setTimeout(() => {
-                track.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                isAnimating = false;
-            }, 50);
-        }
-        // Unlock after transition ends
-        setTimeout(() => { isAnimating = false; }, 820);
+    if (totalSlides === 0) return;
+
+    // Clone first & last for infinite loop
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, track.firstChild);
+
+    // re-collect slides (with clones)
+    const allSlides = Array.from(track.children);
+    // ensure each slide is width: 100% via Tailwind classes already applied (w-full)
+    // initial index points to the first real slide (index 1 because of prepended clone)
+    let currentIndex = 1;
+    let isAnimating = false;
+    let autoplayInterval = null;
+
+    // Apply initial transform
+    // Use percent relative to track width; each slide is 100 / allSlides.length of track
+    const stepPercent = 100 / allSlides.length;
+    const setTranslate = (idx, withTransition = true) => {
+      if (!withTransition) {
+        track.style.transition = 'none';
+      } else {
+        track.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      }
+      track.style.transform = `translate3d(-${idx * stepPercent}%, 0, 0)`;
+    };
+
+    // Setup track CSS for smoothness
+    track.style.display = 'flex';
+    track.style.width = `${allSlides.length * 100}%`;
+    allSlides.forEach(slide => slide.style.width = `${100 / allSlides.length}%`);
+
+    // Initial place
+    setTranslate(currentIndex, false);
+    // small entrance
+    requestAnimationFrame(() => {
+      carousel.style.opacity = '1';
+      carousel.style.transform = 'translateY(0)';
+    });
+
+    // Build indicators for real slides only
+    indicatorsWrap.innerHTML = '';
+    const createIndicator = (i) => {
+      const btn = document.createElement('button');
+      btn.className = 'w-3 h-3 rounded-full bg-white/40 hover:bg-white/70 transition';
+      btn.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      btn.type = 'button';
+      btn.addEventListener('click', () => {
+        goToRealSlide(i);
+        restartAutoplay(6000);
+      });
+      indicatorsWrap.appendChild(btn);
+      return btn;
+    };
+    const indicators = [];
+    for (let i = 0; i < totalSlides; i++) {
+      indicators.push(createIndicator(i));
     }
-    
-    // Next slide
-    function nextSlide() {
-        if (currentIndex >= totalSlides + 1) {
-            moveToSlide(currentIndex + 1);
-            setTimeout(() => {
-                moveToSlide(1, false);
-            }, 800);
-        } else {
-            moveToSlide(currentIndex + 1);
-        }
+    const updateIndicators = () => {
+      const realIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      indicators.forEach((dot, i) => {
+        dot.classList.toggle('bg-white', i === realIndex);
+        dot.classList.toggle('bg-white/40', i !== realIndex);
+      });
+    };
+    updateIndicators();
+
+    // transitionend handler (cleanly handle clone jumps)
+    track.addEventListener('transitionend', (ev) => {
+      // ensure event belongs to transform on track (some browsers may fire multiple)
+      if (ev.target !== track || ev.propertyName !== 'transform') return;
+
+      // If we're on the clone slides (either 0 or last index), jump to real slide without animation
+      if (currentIndex === 0) {
+        // jumped to the (clone of last) => jump to real last
+        track.style.transition = 'none';
+        currentIndex = totalSlides;
+        track.style.transform = `translate3d(-${currentIndex * stepPercent}%, 0, 0)`;
+      } else if (currentIndex === totalSlides + 1) {
+        // jumped to (clone of first) => jump to real first
+        track.style.transition = 'none';
+        currentIndex = 1;
+        track.style.transform = `translate3d(-${currentIndex * stepPercent}%, 0, 0)`;
+      }
+      // re-enable transitions for next move (via small reflow)
+      requestAnimationFrame(() => {
+        track.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      });
+
+      isAnimating = false;
+      updateIndicators();
+    });
+
+    // Core navigation
+    function moveTo(index) {
+      if (isAnimating) return;
+      isAnimating = true;
+      currentIndex = index;
+      setTranslate(currentIndex, true);
     }
-    
-    // Previous slide
-    function prevSlide() {
-        if (currentIndex <= 0) {
-            moveToSlide(currentIndex - 1);
-            setTimeout(() => {
-                moveToSlide(totalSlides, false);
-            }, 800);
-        } else {
-            moveToSlide(currentIndex - 1);
-        }
+    function next() { moveTo(currentIndex + 1); }
+    function prev() { moveTo(currentIndex - 1); }
+    function goToRealSlide(realIndexZeroBased) {
+      // real index 0..totalSlides-1 maps to internal index realIndex+1
+      moveTo(realIndexZeroBased + 1);
     }
-    
-    // Auto-play functionality
+
+    // Controls
+    if (nextButton) nextButton.addEventListener('click', (e) => { e.preventDefault(); stopAutoplay(); next(); restartAutoplay(6000); });
+    if (prevButton) prevButton.addEventListener('click', (e) => { e.preventDefault(); stopAutoplay(); prev(); restartAutoplay(6000); });
+
+    // Keyboard navigation (when carousel is focused)
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); stopAutoplay(); next(); restartAutoplay(6000); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); stopAutoplay(); prev(); restartAutoplay(6000); }
+    });
+
+    // Pointer drag (mouse + touch using pointer events)
+    let pointerStartX = 0;
+    let pointerDeltaX = 0;
+    let dragging = false;
+
+    const onPointerDown = (ev) => {
+      if (ev.pointerType === 'mouse' && ev.button !== 0) return; // only left-click
+      dragging = true;
+      pointerStartX = ev.clientX;
+      pointerDeltaX = 0;
+      track.style.transition = 'none';
+      carousel.setPointerCapture?.(ev.pointerId);
+      stopAutoplay();
+    };
+    const onPointerMove = (ev) => {
+      if (!dragging) return;
+      pointerDeltaX = ev.clientX - pointerStartX;
+      // compute percentage shift relative to track width
+      // shifting by pointerDeltaX px equals (pointerDeltaX / trackWidth) * 100%
+      // trackWidth = allSlides.length * carousel.clientWidth
+      const pctSlide = (pointerDeltaX / carousel.clientWidth) * stepPercent;
+      track.style.transform = `translate3d(-${currentIndex * stepPercent - pctSlide}%, 0, 0)`;
+    };
+    const onPointerUp = (ev) => {
+      if (!dragging) return;
+      dragging = false;
+      const thresholdPx = Math.max(50, carousel.clientWidth * 0.08); // 8% or 50px min
+      if (Math.abs(pointerDeltaX) > thresholdPx) {
+        if (pointerDeltaX < 0) {
+          // swiped left -> next
+          next();
+        } else {
+          // swiped right -> prev
+          prev();
+        }
+      } else {
+        // small move -> snap back
+        setTranslate(currentIndex, true);
+        // re-enable default transition after a frame (transitionend will set flags)
+      }
+      startAutoplayDelayed(8000);
+    };
+
+    carousel.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    // Autoplay & visibility/focus handling
     function startAutoplay() {
-        if (autoplayInterval) clearInterval(autoplayInterval);
-        autoplayInterval = setInterval(() => { if (!isAnimating) nextSlide(); }, 5000); // slower 5s
+      if (!autoplayEnabled) return;
+      stopAutoplay();
+      autoplayInterval = setInterval(() => {
+        if (!isAnimating && document.visibilityState === 'visible') next();
+      }, 5000);
     }
-    
     function stopAutoplay() {
+      if (autoplayInterval) {
         clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
     }
-    
-    // Event listeners for manual controls
-    if (nextButton) {
-        nextButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Force button to stay in correct position
-            nextButton.style.position = 'absolute';
-            nextButton.style.right = '16px';
-            nextButton.style.top = '50%';
-            nextButton.style.transform = 'translateY(-50%)';
-            nextButton.style.zIndex = '10';
-            
-            stopAutoplay();
-            if (!isAnimating) nextSlide();
-            
-            // Double-check position after animation
-            setTimeout(() => {
-                nextButton.style.right = '16px';
-                nextButton.style.top = '50%';
-                nextButton.style.transform = 'translateY(-50%)';
-            }, 100);
-            
-            setTimeout(startAutoplay, 6000); // Restart autoplay after 6 seconds
-        });
+    function restartAutoplay(delay = 0) {
+      stopAutoplay();
+      if (!autoplayEnabled) return;
+      if (delay <= 0) startAutoplay();
+      else setTimeout(startAutoplay, delay);
     }
-    
-    if (prevButton) {
-        prevButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Force button to stay in correct position
-            prevButton.style.position = 'absolute';
-            prevButton.style.left = '16px';
-            prevButton.style.top = '50%';
-            prevButton.style.transform = 'translateY(-50%)';
-            prevButton.style.zIndex = '10';
-            
-            stopAutoplay();
-            if (!isAnimating) prevSlide();
-            
-            // Double-check position after animation
-            setTimeout(() => {
-                prevButton.style.left = '16px';
-                prevButton.style.top = '50%';
-                prevButton.style.transform = 'translateY(-50%)';
-            }, 100);
-            
-            setTimeout(startAutoplay, 6000); // Restart autoplay after 6 seconds
-        });
+    function startAutoplayDelayed(ms) {
+      stopAutoplay();
+      setTimeout(startAutoplay, ms);
     }
-    
-    // Pause autoplay on hover
+
+    // Pause autoplay on hover, focus, or when page hidden
     carousel.addEventListener('mouseenter', stopAutoplay);
     carousel.addEventListener('mouseleave', startAutoplay);
-    
-    // Touch/swipe support for mobile
-    let startX = 0;
-    let isDragging = false;
-    
-    carousel.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-        stopAutoplay();
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') stopAutoplay();
+      else startAutoplay();
     });
-    
-    carousel.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-    });
-    
-    carousel.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        const endX = e.changedTouches[0].clientX;
-        const diff = startX - endX;
-        
-        if (Math.abs(diff) > 50) { // Minimum swipe distance
-            if (diff > 0) {
-                nextSlide();
-            } else {
-                prevSlide();
-            }
-        }
-        
-        setTimeout(startAutoplay, 8000);
-    });
-    
-    // Start autoplay
+
+    // Start autoplay initially if enabled
     startAutoplay();
-    
-    // Add smooth entrance animation
-    setTimeout(() => {
-        carousel.style.opacity = '1';
-        carousel.style.transform = 'translateY(0)';
-    }, 200);
+
+    // Recalculate sizes on resize (keeps percent math consistent)
+    window.addEventListener('resize', () => {
+      // small reflow adjustments: restore current transform based on currentIndex
+      setTranslate(currentIndex, false);
+    });
+
+    // Expose a cleanup method (optional)
+    carousel._destroyCarousel = () => {
+      stopAutoplay();
+      carousel.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerUp);
+    };
+  }
+
+// ===============================
+// SWIPER CAROUSEL (out-of-box)
+// ===============================
+function initSwiperCarousel() {
+  if (typeof Swiper === 'undefined') return;
+  const swiperEl = document.querySelector('.swiper');
+  if (!swiperEl) return;
+
+  // Ensure it's visible (our scroll animations may set initial opacity)
+  swiperEl.style.opacity = '1';
+  swiperEl.style.transform = 'translateY(0)';
+
+  // eslint-disable-next-line no-new
+  new Swiper('.swiper', {
+    loop: true,
+    speed: 700,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    keyboard: {
+      enabled: true,
+    },
+    grabCursor: true,
+    slidesPerView: 1,
+    spaceBetween: 0,
+  });
 }
 
 // ===============================
