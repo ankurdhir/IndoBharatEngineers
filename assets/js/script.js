@@ -430,10 +430,13 @@ function initInteractiveElements() {
     
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', function() {
+            // Skip hover transform if inside a swiper slide
+            if (this.closest('.swiper')) return;
             this.style.transform = 'translateY(-4px) scale(1.02)';
         });
         
         element.addEventListener('mouseleave', function() {
+            if (this.closest('.swiper')) return;
             this.style.transform = 'translateY(0) scale(1)';
         });
     });

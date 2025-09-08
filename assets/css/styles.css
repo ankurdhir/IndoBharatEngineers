@@ -742,3 +742,21 @@ nav a:hover::after {
 @media (min-width: 1024px) {
   .client-logo { max-height: 96px; }
 }
+
+/* Prevent zoom effects inside carousels */
+.swiper .service-card:hover {
+  transform: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.swiper .professional-image:hover,
+.swiper .professional-image:hover img {
+  transform: none;
+}
+.swiper-slide img:hover {
+  transform: none;
+}
+
+/* Avoid cropped ("zoomed") images inside Swiper carousels */
+.swiper .swiper-slide img {
+  object-fit: contain;
+}
